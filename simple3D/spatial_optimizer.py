@@ -106,9 +106,17 @@ class SpatialOptimizer:
     def run_single_optimization(self, method='L-BFGS-B', seed=None):
         bounds = [(-self.cube_size / 2, self.cube_size / 2) for _ in range(self.N * 3)]
         initial_guess = self.generate_initial_guess(seed)
+        
+        if method == 'L-BFGS-B':
+            options = {
+               'maxls': 50  # Increase the number of line searches
+               }
+        else:
+            options={}
+        
         result = minimize(self.objective_function, initial_guess,
                           jac=self.objective_gradient,
-                          bounds=bounds, method=method)
+                          bounds=bounds, method=method, options=options)
         result.x = result.x.reshape((self.N, 3))
         return result
 
@@ -121,7 +129,7 @@ class SpatialOptimizer:
 
     # Function to run multiple optimizations in parallel with status updates
     def run_optimizations_parallel(self, num_iterations, method='L-BFGS-B',
-                                n_cpus=None):
+                                   n_cpus=None):
         self.completed_processes = 0
         if n_cpus is None:
             n_cpus = mp.cpu_count()
@@ -138,7 +146,7 @@ class SpatialOptimizer:
         final_coordinates = self.models[model_number].x
         
         if ax is None:
-            fig = plt.figure()
+            fig = plt.figure(figsize=(10, 10))
             ax = fig.add_subplot(111, projection='3d')
         
         # Plot points
