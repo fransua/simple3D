@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: simple3D
+Version: 0.1.0
+Summary: Simple optimizer of spatial restraints using SciPy
+Home-page: https://github.com/fransua/simple3D
+Author: Francois Serra
+Author-email: serra.francois@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GPLv3 License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+
+# Your Library
+
+Simple optimizer of spatial restraints using SciPy.
+
+## Installation
+
+```bash
+pip install simple3D
